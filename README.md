@@ -7,7 +7,7 @@ The Frontend is configured on the frontend folder.
 - The user to add and remove items to their cart.
 - Calculate cart total using Retail price.
 
-The Page with products items chose looks like so:
+The Page with product items chose looks like so:
 
 <img src='FE.png' style='width:90%' />
 

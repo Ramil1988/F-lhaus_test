@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const MyOrderItem = ({ item }) => {
-  const { fulhausProductName, retailPrice, imageURLs } = item;
+const MyOrderItem = ({ item, onRemove }) => {
+  const { _id, fulhausProductName, retailPrice, imageURLs } = item;
 
   return (
     <MyOrderItemWrapper>
@@ -11,6 +11,7 @@ const MyOrderItem = ({ item }) => {
         <MyOrderItemTitle>{fulhausProductName}</MyOrderItemTitle>
         <MyOrderItemPrice>${retailPrice}</MyOrderItemPrice>
       </MyOrderItemDetails>
+      <RemoveButton onClick={() => onRemove(_id)}>X</RemoveButton>
     </MyOrderItemWrapper>
   );
 };
@@ -44,6 +45,13 @@ const MyOrderItemTitle = styled.p`
 
 const MyOrderItemPrice = styled.p`
   font-size: 16px;
+`;
+
+const RemoveButton = styled.button`
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 export default MyOrderItem;

@@ -14,11 +14,19 @@ const MyOrder = ({ items, setIsOpen }) => {
     );
   }, [items]);
 
+  const handleRemoveItem = (itemId) => {
+    setIsOpen((prevItems) => {
+      const index = prevItems.findIndex((item) => item._id === itemId);
+      const newItems = [...prevItems];
+      newItems.splice(index, 1);
+      return newItems;
+    });
+  };
+
   const handleCheckout = () => {
     alert("The order has been made! Thank you!");
     setIsOpen([]);
   };
-
 
   return (
     <MyOrderWrapper>
@@ -29,7 +37,11 @@ const MyOrder = ({ items, setIsOpen }) => {
       <MyOrderItemsContainer>
         <MyOrderItemsWrapper>
           {items.map((item) => (
-            <MyOrderItem key={item._id} item={item} />
+            <MyOrderItem
+              key={item._id}
+              item={item}
+              onRemove={() => handleRemoveItem(item._id)}
+            />
           ))}
         </MyOrderItemsWrapper>
       </MyOrderItemsContainer>

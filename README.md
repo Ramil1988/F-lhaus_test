@@ -1,70 +1,174 @@
-# Getting Started with Create React App
+# FRONTEND: Design for an ecommerce website 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Frontend is configured on the frontend folder.
 
-## Available Scripts
+## This website represents the product items that are generated via API endpoint. It allows:
 
-In the project directory, you can run:
+- The user to add and remove items to their cart.
+- Calculate cart total using Retail price.
 
-### `npm start`
+The Page with products items chose looks like so:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img src='FE.png' style='width:50%' />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `npm test`
+# BACKEND: Acronym API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## This API provides basic CRUD operations for acronyms.
 
-### `npm run build`
+The Backend is configured on the Server folder.
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Endpoints:
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**1. GET/acronym**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Get a list of acronyms.
 
-### `npm run eject`
+_Query parameters:_
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- page (optional, default: 1): The page number to return.
+- limit (optional, default: 10): The number of results to return per page.
+- search (optional, default: ""): The search term to filter results by.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+_Response_: Returns a JSON object with the following properties:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- data: An array of acronyms.
+- hasNextPage: A boolean indicating whether there are more results after the current page.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+_Example response_:
 
-## Learn More
+```json
+{
+  "data": [
+    {
+      "_id": "507f191e810c19729de860eb",
+      "acronym": "2B",
+      "definition": "To be"
+    },
+    {
+      "_id": "507f191e810c19729de860ec",
+      "acronym": "2EZ",
+      "definition": "Too easy"
+    }
+  ],
+  "hasNextPage": true
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+_Testing on Postman:_
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Open Postman and create a new request by clicking on the + New button in the top-left corner of the Postman window.
+- In the Request tab, set the request method to GET.
+- Enter the URL of your server, followed by the endpoint path: http://localhost:3000/acronym.
+- In the Params section, add the query parameters for pagination and search. For example, you can set the page parameter to 1, the limit parameter to 10, and the search parameter to too. This will return the first 10 results that match the search term too.
+- Click the Send button to make the request.
+- Once the response is received, you can view the response body in the Body tab in the lower half of the Postman window.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**2. POST/acronym**
 
-### Analyzing the Bundle Size
+This function adds a new acronym to the database. It expects a JSON request body with acronym and definition properties containing the acronym and its definition, respectively.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The function generates a new unique \_id for the acronym based by runnning uuid() function, creates a new object with the provided acronym and definition properties, and adds the object to the data array. If the addition is successful, the function returns a 201 Created status code and a JSON object containing a success message and the new acronym. If an error occurs, the function returns a 500 Internal Server Error status code and a JSON object containing an error message.
 
-### Making a Progressive Web App
+This function assumes that the data array is a global variable containing the array of acronyms in the database. You may need to modify the function to access your database in a different way depending on how it is structured.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+PUT /acronym/507f191e810c19729de860eb
+Content-Type: application/json
 
-### Advanced Configuration
+```json
+{
+  "acronym": "TGIF",
+  "definition": "Thank God It's Friday"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+_Example response_:
 
-### Deployment
+```json
+{
+  "message": "Acronym created successfully",
+  "data": {
+    "_id": "1645277127469",
+    "acronym": "TGIF",
+    "definition": "Thank God It's Friday"
+  }
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+_Testing on Postman:_
 
-### `npm run build` fails to minify
+- Open Postman and create a new request.
+- Set the request method to POST and enter the endpoint URL for your server, e.g. http://localhost:3000/acronym.
+- Select the Body tab and choose the raw option.
+- Set the request body to JSON format and enter an example acronym and definition, e.g.:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```json
+{
+  "acronym": "NWONE",
+  "definition": "I am a new one"
+}
+```
+
+---
+
+**3. PATCH/acronym/:acronymID**
+
+This function updates an existing acronym in the database. It expects a JSON request body with acronym and definition properties containing the acronym and its definition, respectively.
+
+_Example response_:
+
+```json
+{
+  {
+  "message": "Acronym updated successfully",
+  "data": {
+    "_id": "507f191e810c19729de860eb",
+    "acronym": "2B",
+    "definition": "To be"
+  }
+}
+}
+```
+
+In case of error you will get these messages depending on the type of error:
+
+- 404 Not Found: The specified acronym ID was not found in the database.
+- 500 Internal Server Error: An error occurred on the server.
+
+_Testing on Postman:_
+
+- Open Postman and create a new request.
+- Set the request method to PATCH.
+- Enter the endpoint URL, replacing :acronymID with the ID of the acronym you want to update (e.g. http://localhost:3000/acronym/507f191e810c19729de860eb).
+- In the request body tab, select raw and set the format to JSON.
+- Enter the updated acronym and definition in the request body (e.g. {"acronym": "2BT", "definition": "To be truthful"}).
+- Click the Send button to send the request.
+- Check the response to see if the acronym was updated successfully.
+
+---
+
+**3. DELETE/acronym/:acronymID**
+
+Deletes an existing acronym from the database and returns the deleted acronym.
+
+_Example response_:
+
+200 OK: The acronym was deleted successfully. The response body contains the deleted acronym.
+
+In case of error you will get these messages depending on the type of error:
+
+- 404 Not Found: The specified acronym ID was not found in the database.
+- 500 Internal Server Error: An error occurred on the server.
+
+_Testing on Postman:_
+
+- Open Postman and create a new request.
+- Set the request method to DELETE.
+- Enter the endpoint URL, replacing :acronymID with the ID of the acronym you want to delete (e.g. http://localhost:3000/acronym/507f191e810c19729de860eb).
+- Click the Send button to send the request.
+- Check the response to see if the acronym was deleted successfully and to view the deleted acronym.

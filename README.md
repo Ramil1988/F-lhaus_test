@@ -152,7 +152,7 @@ _Testing on Postman:_
 
 ---
 
-**3. DELETE/acronym/:acronymID**
+**4. DELETE/acronym/:acronymID**
 
 Deletes an existing acronym from the database and returns the deleted acronym.
 

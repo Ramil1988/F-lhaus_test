@@ -9,7 +9,7 @@ The Frontend is configured on the frontend folder.
 
 The Page with products items chose looks like so:
 
-<img src='FE.png' style='width:80%' />
+<img src='FE.png' style='width:90%' />
 
 <br>
 

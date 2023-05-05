@@ -7,9 +7,9 @@ The Frontend is configured on the frontend folder.
 - The user to add and remove items to their cart.
 - Calculate cart total using Retail price.
 
-The Page with products items chose looks like so:
+The Page with product items chose looks like so:
 
-<img src='FE.png' style='width:50%' />
+<img src='FE.png' style='width:90%' />
 
 <br>
 
@@ -152,7 +152,7 @@ _Testing on Postman:_
 
 ---
 
-**3. DELETE/acronym/:acronymID**
+**4. DELETE/acronym/:acronymID**
 
 Deletes an existing acronym from the database and returns the deleted acronym.
 
@@ -172,4 +172,5 @@ _Testing on Postman:_
 - Enter the endpoint URL, replacing :acronymID with the ID of the acronym you want to delete (e.g. http://localhost:3000/acronym/507f191e810c19729de860eb).
 - Click the Send button to send the request.
 - Check the response to see if the acronym was deleted successfully and to view the deleted acronym.
-# FullHouse_test-
+
+Thank you!

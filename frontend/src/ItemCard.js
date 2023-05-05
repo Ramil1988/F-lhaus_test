@@ -113,3 +113,4 @@ const CartIcon = styled(FaCartPlus)`
 `;
 
 export default ItemCard;
+

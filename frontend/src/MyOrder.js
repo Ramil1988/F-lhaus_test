@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import MyOrderItem from "./MyOrderItem";
 
-const MyOrder = ({ items, setIsOpen }) => {
+const MyOrder = ({ items, setCartItems }) => {
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const handleClose = () => {
+    setCartItems([]);
+  };
 
   useEffect(() => {
     setTotalPrice(
@@ -15,7 +19,7 @@ const MyOrder = ({ items, setIsOpen }) => {
   }, [items]);
 
   const handleRemoveItem = (itemId) => {
-    setIsOpen((prevItems) => {
+    setCartItems((prevItems) => {
       const index = prevItems.findIndex((item) => item._id === itemId);
       const newItems = [...prevItems];
       newItems.splice(index, 1);
@@ -25,13 +29,20 @@ const MyOrder = ({ items, setIsOpen }) => {
 
   const handleCheckout = () => {
     alert("The order has been made! Thank you!");
-    setIsOpen([]);
+    setCartItems([]);
   };
 
   return (
     <MyOrderWrapper>
       <MyOrderHeader>
-        <CloseButton onClick={() => setIsOpen([])}>X</CloseButton>
+        <CloseButton
+          onClick={() => {
+            setCartItems([]);
+            handleClose();
+          }}
+        >
+          X
+        </CloseButton>
         <HeaderText>My Order</HeaderText>
       </MyOrderHeader>
       <MyOrderItemsContainer>
@@ -50,19 +61,27 @@ const MyOrder = ({ items, setIsOpen }) => {
         <TotalPrice>${totalPrice}</TotalPrice>
       </MyOrderTotal>
       <CheckoutWrapper>
-        <CheckoutButton onClick={handleCheckout}>Checkout</CheckoutButton>
+        <CheckoutButton
+          onClick={() => {
+            handleCheckout();
+            handleClose();
+          }}
+        >
+          Checkout
+        </CheckoutButton>
       </CheckoutWrapper>
     </MyOrderWrapper>
   );
 };
 
 const MyOrderWrapper = styled.div`
-  width: 30%;
+  width: 25%;
   height: 100%;
   background-color: #fff;
   position: fixed;
   top: 0;
   right: 0;
+  transition: all 0.3s ease-in-out;
 
   @media (max-width: 768px) {
     width: 100%;

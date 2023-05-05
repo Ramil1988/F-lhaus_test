@@ -1,5 +1,5 @@
-import { useState } from "react";
-import BigPicture from ".//BigPicture.png";
+import { useState, useEffect } from "react";
+import BigPicture from "./BigPicture.png";
 import styled from "styled-components";
 
 import ListOfItems from "./ListOfItems";
@@ -7,15 +7,30 @@ import MyOrder from "./MyOrder";
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [showBigImage, setShowBigImage] = useState(true);
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      setShowBigImage(true);
+    }
+  }, [cartItems]);
+
+  const handleItemClick = () => {
+    setShowBigImage(false);
+  };
 
   return (
     <AppWrapper>
-      <BigImageWrapper />
-      <ItemCardWrapper>
+      {showBigImage && <BigImageWrapper />}
+      <ItemCardWrapper onClick={handleItemClick} showBigImage={showBigImage}>
         <ListOfItems cartItems={cartItems} setCartItems={setCartItems} />
       </ItemCardWrapper>
       {cartItems.length > 0 && (
-        <MyOrder items={cartItems} setIsOpen={setCartItems} />
+        <MyOrder
+          items={cartItems}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+        />
       )}
     </AppWrapper>
   );
@@ -35,12 +50,14 @@ const BigImageWrapper = styled.div`
 `;
 
 const ItemCardWrapper = styled.div`
-  width: 80%;
+  width: ${(props) => (props.showBigImage ? "80%" : "75%")};
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 `;
 
 export default App;

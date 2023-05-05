@@ -2,6 +2,7 @@ import { FaStar } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import styled from "styled-components";
 import MyOrder from "./MyOrder";
+import BigPicture from "./BigPicture.png";
 
 const ItemCard = ({ product, setCartItems }) => {
   const selectedItems = [];
@@ -12,10 +13,13 @@ const ItemCard = ({ product, setCartItems }) => {
 
   return (
     <Wrapper key={product._id} to={`/item/${product._id}`}>
-      <ItemImg src={product.imageURLs[0]} alt={product.fulhausProductName} />
+      <ItemImg
+        src={product.imageURLs[0] ? product.imageURLs[0] : BigPicture}
+        alt="Product"
+      />
       <ItemTitle>{product.fulhausProductName}</ItemTitle>
       <StarsWrapper>
-        {[...Array(5)].map((_, index) => (
+        {[...Array(5)].map((index) => (
           <GoldStars key={index} icon={FaStar} />
         ))}
       </StarsWrapper>
@@ -113,4 +117,3 @@ const CartIcon = styled(FaCartPlus)`
 `;
 
 export default ItemCard;
-

@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import BigPicture from "./BigPicture.png";
 
 const MyOrderItem = ({ item, onRemove }) => {
   const { _id, fulhausProductName, retailPrice, imageURLs } = item;
 
   return (
     <MyOrderItemWrapper>
-      <MyOrderItemImage src={imageURLs[0]} />
+      <MyOrderItemImage src={imageURLs[0] ? imageURLs[0] : BigPicture} />
       <MyOrderItemDetails>
         <MyOrderItemTitle>{fulhausProductName}</MyOrderItemTitle>
         <MyOrderItemPrice>${retailPrice}</MyOrderItemPrice>

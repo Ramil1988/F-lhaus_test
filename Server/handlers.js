@@ -3,8 +3,8 @@ const { v4: uuidv4 } = require("uuid");
 
 const getAcronyms = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
     const search = req.query.search || "";
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
@@ -15,6 +15,8 @@ const getAcronyms = async (req, res) => {
     );
 
     const results = filteredData.slice(startIndex, endIndex);
+
+    console.log(results.length);
     const hasNextPage = endIndex < filteredData.length;
 
     if (results.length === 0) {
